@@ -110,6 +110,31 @@ h1 {
   background-color: #007ba7;
 }
 
+.list-section {
+  margin-bottom: 2% ;
+}
+
+#task-list {
+  list-style-type: none;
+  margin-top: 10px;
+  padding: 0;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #9f9f9f;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
 
 .delete-buttons {
   display: flex;
