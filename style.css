@@ -79,7 +79,58 @@ h1 {
 }
 
 }
+.todolist-head{
+     margin : 3% 0;
+  font-size: 2rem;
 
+}
+
+.filter-section {
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+  flex-wrap: wrap;
+
+  .filter-button{
+  background-color: #0099cc;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.filter-button:hover {
+  background-color: #007ba7;
+}
+
+}
+
+.filter-btn:hover {
+  background-color: #007ba7;
+}
+
+
+.delete-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.delete-button button {
+  background-color: #dc3545;
+   
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button button:hover {
+  background-color: #f08080;
+}
  
 
  
