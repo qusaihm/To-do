@@ -50,3 +50,15 @@ const createTaskElement = (text) => {
   taskList.appendChild(li);
 };
 
+const addTask = () => {
+  const value = taskInput.value.trim();
+
+  if (!isValidTask(value)) return;
+
+  createTaskElement(value);  
+  taskInput.value = '';      
+};
+
+addTaskBtn.addEventListener('click', addTask);
+
+
