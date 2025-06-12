@@ -143,6 +143,10 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
  
+
+
+ const updateNoTaskMessage = () => {
+  noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
+};
+
