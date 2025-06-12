@@ -69,14 +69,16 @@ const isValidTask = (text) => {
 
 
  
-const addTask = () => {
+ const addTask = () => {
   const value = taskInput.value.trim();
 
   if (!isValidTask(value)) return;
 
-  createTaskElement(value);
-  taskInput.value = '';
+  createTaskElement(value);          
+  saveTaskToLocalStorage(value);     
+  taskInput.value = '';              
 };
+
 
  
 addTaskBtn.addEventListener('click', addTask);
