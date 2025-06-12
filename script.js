@@ -1,7 +1,9 @@
- const todoInput = document.getElementById("todo-input");
-const addTaskButtton = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
-const noTaskMsg = document.getElementById("masseg-notask");
+ 
+const taskInput = document.getElementById('todo-input');
+const addTaskBtn = document.getElementById('add-task');
+const taskList = document.getElementById('task-list');
+const inputError = document.getElementById('input-error');
+
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
@@ -25,3 +27,26 @@ const isValidTask = (text) => {
   inputError.style.display = 'none';  
   return true;
 };
+
+const createTaskElement = (text) => {
+  const li = document.createElement('li');
+   li.className = 'task-item';
+
+  const span = document.createElement('span');
+  span.textContent = text;
+  span.className = 'task-text';
+  span.style.flex = '1';
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.className = 'task-checkbox';
+
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'task-actions';
+  actionsDiv.appendChild(checkbox);
+
+  li.appendChild(span);
+  li.appendChild(actionsDiv);
+  taskList.appendChild(li);
+};
+
