@@ -59,5 +59,12 @@ const getTasksFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem('tasks')) || [];
 };
 
+const saveTaskToLocalStorage = (task) => {
+  const tasks = getTasksFromLocalStorage();  
+  tasks.push({ text: task, isDone: false });  
+  localStorage.setItem('tasks', JSON.stringify(tasks));  
+};
+
+
 
  
