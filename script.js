@@ -1,8 +1,8 @@
- 
-const taskInput = document.getElementById('todo-input');
+ const taskInput = document.getElementById('todo-input');
 const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
+const noTaskMsg = document.getElementById('masseg-notask');
 
  
 const isValidTask = (text) => {
@@ -13,7 +13,7 @@ const isValidTask = (text) => {
   }
 
   if (/^\d/.test(text)) {
-    inputError.textContent = 'Task cannot wtart with a number';
+    inputError.textContent = 'Task cannot start with a number';
     inputError.style.display = 'block';
     return false;
   }
@@ -24,41 +24,34 @@ const isValidTask = (text) => {
     return false;
   }
 
-  inputError.style.display = 'none';  
+  inputError.style.display = 'none';
   return true;
 };
 
+ 
 const createTaskElement = (text) => {
   const li = document.createElement('li');
-   li.className = 'task-item';
-
-  const span = document.createElement('span');
-  span.textContent = text;
-  span.className = 'task-text';
-  span.style.flex = '1';
-
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.className = 'task-checkbox';
-
-  const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'task-actions';
-  actionsDiv.appendChild(checkbox);
-
-  li.appendChild(span);
-  li.appendChild(actionsDiv);
+  li.className = 'task-item';
+  li.textContent = text;
   taskList.appendChild(li);
+  checkIfNoTasks();
 };
 
+ 
 const addTask = () => {
   const value = taskInput.value.trim();
 
   if (!isValidTask(value)) return;
 
-  createTaskElement(value);  
-  taskInput.value = '';      
+  createTaskElement(value);
+  taskInput.value = '';
 };
 
+ 
 addTaskBtn.addEventListener('click', addTask);
 
+taskInput.addEventListener('input', () => {
+  inputError.style.display = 'none';
+});
 
+ 
