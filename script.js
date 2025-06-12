@@ -1,7 +1,9 @@
- const todoInput = document.getElementById("todo-input");
-const addTaskButtton = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
-const noTaskMsg = document.getElementById("masseg-notask");
+ 
+const taskInput = document.getElementById('todo-input');
+const addTaskBtn = document.getElementById('add-task');
+const taskList = document.getElementById('task-list');
+const inputError = document.getElementById('input-error');
+
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
