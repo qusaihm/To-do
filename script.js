@@ -54,4 +54,10 @@ taskInput.addEventListener('input', () => {
   inputError.style.display = 'none';
 });
 
+const getTasksFromLocalStorage = () => {
+   
+  return JSON.parse(localStorage.getItem('tasks')) || [];
+};
+
+
  
