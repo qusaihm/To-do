@@ -28,8 +28,7 @@ const isValidTask = (text) => {
   return true;
 };
 
- 
- const createTaskElement = (text, isDone = false) => {
+  const createTaskElement = (text, isDone = false) => {
   const li = document.createElement('li');
   li.className = 'task-item';
 
@@ -47,9 +46,9 @@ const isValidTask = (text) => {
   checkbox.type = 'checkbox';
   checkbox.checked = isDone;
   checkbox.className = 'task-checkbox';
-
   if (isDone) checkbox.style.accentColor = 'red';
 
+ 
   checkbox.addEventListener('change', () => {
     const checked = checkbox.checked;
     span.style.textDecoration = checked ? 'line-through' : 'none';
@@ -58,14 +57,42 @@ const isValidTask = (text) => {
     updateTasksInLocalStorage();
   });
 
+   
+  const editBtn = document.createElement('button');
+  editBtn.textContent = '✏️';
+  editBtn.className = 'edit-btn';
+
+  editBtn.addEventListener('click', () => {
+    const newText = prompt('Rename Task', span.textContent);
+    if (newText !== null && isValidTask(newText)) {
+      span.textContent = newText;
+      updateTasksInLocalStorage();
+    }
+  });
+
+ 
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '🗑️';
+  deleteBtn.className = 'delete-btn';
+
+  deleteBtn.addEventListener('click', () => {
+    li.remove();
+    updateNoTaskMessage();        
+    updateTasksInLocalStorage();  
+  });
+
+   
   const actionsDiv = document.createElement('div');
   actionsDiv.className = 'task-actions';
   actionsDiv.appendChild(checkbox);
+  actionsDiv.appendChild(editBtn);
+  actionsDiv.appendChild(deleteBtn);
 
   li.appendChild(span);
   li.appendChild(actionsDiv);
   taskList.appendChild(li);
 };
+
 
 
  
