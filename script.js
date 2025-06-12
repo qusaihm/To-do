@@ -29,13 +29,44 @@ const isValidTask = (text) => {
 };
 
  
-const createTaskElement = (text) => {
+ const createTaskElement = (text, isDone = false) => {
   const li = document.createElement('li');
   li.className = 'task-item';
-  li.textContent = text;
+
+  const span = document.createElement('span');
+  span.textContent = text;
+  span.className = 'task-text';
+  span.style.flex = '1';
+
+  if (isDone) {
+    span.style.textDecoration = 'line-through';
+    span.style.color = 'red';
+  }
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = isDone;
+  checkbox.className = 'task-checkbox';
+
+  if (isDone) checkbox.style.accentColor = 'red';
+
+  checkbox.addEventListener('change', () => {
+    const checked = checkbox.checked;
+    span.style.textDecoration = checked ? 'line-through' : 'none';
+    span.style.color = checked ? 'red' : '#000000';
+    checkbox.style.accentColor = checked ? 'red' : '';
+    updateTasksInLocalStorage();
+  });
+
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'task-actions';
+  actionsDiv.appendChild(checkbox);
+
+  li.appendChild(span);
+  li.appendChild(actionsDiv);
   taskList.appendChild(li);
-  checkIfNoTasks();
 };
+
 
  
 const addTask = () => {
