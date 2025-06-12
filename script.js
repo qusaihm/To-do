@@ -54,6 +54,18 @@ taskInput.addEventListener('input', () => {
   inputError.style.display = 'none';
 });
 
+const updateTasksInLocalStorage = () => {
+  const tasks = [];
+  document.querySelectorAll('.task-item').forEach(li => {
+    const text = li.querySelector('.task-text').textContent;
+    const isDone = li.querySelector('.task-checkbox').checked;
+    tasks.push({ text, isDone });
+  });
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+
+
 const getTasksFromLocalStorage = () => {
    
   return JSON.parse(localStorage.getItem('tasks')) || [];
