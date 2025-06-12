@@ -77,6 +77,12 @@ const saveTaskToLocalStorage = (task) => {
   localStorage.setItem('tasks', JSON.stringify(tasks));  
 };
 
+window.addEventListener('DOMContentLoaded', () => {
+  const tasks = getTasksFromLocalStorage();
+  tasks.forEach(task => createTaskElement(task.text, task.isDone));
+});
+
+
 
 
  
