@@ -103,7 +103,8 @@ const isValidTask = (text) => {
 
   createTaskElement(value);          
   saveTaskToLocalStorage(value);     
-  taskInput.value = '';              
+  taskInput.value = '';  
+  updateNoTaskMessage();            
 };
 
 
@@ -140,6 +141,7 @@ const saveTaskToLocalStorage = (task) => {
 window.addEventListener('DOMContentLoaded', () => {
   const tasks = getTasksFromLocalStorage();
   tasks.forEach(task => createTaskElement(task.text, task.isDone));
+  updateNoTaskMessage();
 });
 
 
