@@ -158,7 +158,9 @@ window.addEventListener('DOMContentLoaded', () => {
     filteredTasks = allTasks.filter(task => !task.isDone);
   }
 
-
+taskList.innerHTML = '';
+  filteredTasks.forEach(task => createTaskElement(task.text, task.isDone));
+  updateNoTaskMessage();
 
 };
 
