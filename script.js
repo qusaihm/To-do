@@ -147,6 +147,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
  const renderTasks = () => {
+  const allTasks = getTasksFromLocalStorage();
   
 };
 
