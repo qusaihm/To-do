@@ -97,16 +97,16 @@ const isValidTask = (text) => {
 
 
  
- const addTask = () => {
+const addTask = () => {
   const value = taskInput.value.trim();
 
   if (!isValidTask(value)) return;
 
-  createTaskElement(value);          
-  saveTaskToLocalStorage(value);     
-  taskInput.value = '';  
-  updateNoTaskMessage();            
+  saveTaskToLocalStorage(value);
+  taskInput.value = '';
+  renderTasks();
 };
+
 
 
  
@@ -173,7 +173,6 @@ filterButtons.forEach(btn => {
     currentFilter = btn.textContent; 
     renderTasks();
 
-   
     filterButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   });
