@@ -168,4 +168,14 @@ taskList.innerHTML = '';
  const updateNoTaskMessage = () => {
   noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
 };
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.textContent; 
+    renderTasks();
+
+   
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
 
