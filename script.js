@@ -4,6 +4,7 @@ const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
 const noTaskMsg = document.getElementById('masseg-notask');
 let currentFilter = 'All'; 
+const filterButtons = document.querySelectorAll('.filter-button');
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
