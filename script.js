@@ -124,7 +124,9 @@ const updateTasksInLocalStorage = () => {
     tasks.push({ text, isDone });
   });
 
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+localStorage.setItem('tasks', JSON.stringify(tasks));
+renderTasks();
+
 };
 
 
