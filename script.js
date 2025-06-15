@@ -3,7 +3,7 @@ const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
 const noTaskMsg = document.getElementById('masseg-notask');
-
+let currentFilter = 'All'; 
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
