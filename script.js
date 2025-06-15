@@ -146,7 +146,10 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
- 
+ const renderTasks = () => {
+  
+};
+
 
 
  const updateNoTaskMessage = () => {
