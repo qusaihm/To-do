@@ -150,6 +150,16 @@ window.addEventListener('DOMContentLoaded', () => {
   const allTasks = getTasksFromLocalStorage();
   let filteredTasks = [];
 
+  if (currentFilter === 'All') {
+    filteredTasks = allTasks;
+  } else if (currentFilter === 'Done') {
+    filteredTasks = allTasks.filter(task => task.isDone);
+  } else if (currentFilter === 'Todo') {
+    filteredTasks = allTasks.filter(task => !task.isDone);
+  }
+
+
+
 };
 
 
