@@ -79,7 +79,7 @@ function showDialog({ title = '', message = '', inputValue = '', confirmText = '
 okBtn.className = 'dialog-save';
 okBtn.textContent = confirmText;
 
-// لون الزر حسب نوع الديالوج
+
 if (title === 'Rename Task') {
   okBtn.style.backgroundColor = '#0d6efd'; 
   okBtn.style.color = '#fff';
