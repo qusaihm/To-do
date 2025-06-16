@@ -84,7 +84,7 @@ if (title === 'Rename Task') {
   okBtn.style.backgroundColor = '#0d6efd'; 
   okBtn.style.color = '#fff';
 } else {
-  okBtn.style.backgroundColor = '#e0e0e0';  // رمادي للتأكيد العام/الحذف
+  okBtn.style.backgroundColor = '#e0e0e0';  
   okBtn.style.color = '#000';
 }
 
