@@ -3,7 +3,8 @@ const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
 const noTaskMsg = document.getElementById('masseg-notask');
-
+let currentFilter = 'All'; 
+const filterButtons = document.querySelectorAll('.filter-button');
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
@@ -27,6 +28,97 @@ const isValidTask = (text) => {
   inputError.style.display = 'none';
   return true;
 };
+
+
+function showDialog({ title = '', message = '', inputValue = '', confirmText = 'Save', cancelText = 'Cancel', showInput = false, onConfirm, onCancel }) {
+  const oldDialog = document.getElementById('custom-dialog');
+  if (oldDialog) oldDialog.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-dialog';
+  overlay.style.position = 'fixed';
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.18)';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = 9999;
+
+  const dialog = document.createElement('div');
+  dialog.className = 'dialog-box';
+
+  const h2 = document.createElement('div');
+  h2.className = 'dialog-title';
+  h2.textContent = title;
+  dialog.appendChild(h2);
+
+  if (message) {
+    const msg = document.createElement('div');
+    msg.textContent = message;
+    msg.style.marginBottom = '14px';
+    msg.style.textAlign = 'center';
+    dialog.appendChild(msg);
+  }
+
+  let input;
+  if (showInput) {
+    input = document.createElement('input');
+    input.type = 'text';
+    input.value = inputValue;
+    input.className = 'dialog-input';
+    dialog.appendChild(input);
+  }
+
+  const btns = document.createElement('div');
+  btns.className = 'dialog-actions';
+
+  const okBtn = document.createElement('button');
+okBtn.className = 'dialog-save';
+okBtn.textContent = confirmText;
+
+
+if (title === 'Rename Task') {
+  okBtn.style.backgroundColor = '#0d6efd'; 
+  okBtn.style.color = '#fff';
+} else {
+  okBtn.style.backgroundColor = '#e0e0e0';  
+  okBtn.style.color = '#000';
+}
+
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'dialog-cancel';
+  cancelBtn.textContent = cancelText;
+
+  okBtn.onclick = () => {
+    overlay.remove();
+    if (onConfirm) onConfirm(showInput ? input.value : undefined);
+  };
+
+  cancelBtn.onclick = () => {
+    overlay.remove();
+    if (onCancel) onCancel();
+  };
+
+  btns.appendChild(okBtn);
+  btns.appendChild(cancelBtn);
+  dialog.appendChild(btns);
+
+  overlay.appendChild(dialog);
+  document.body.appendChild(overlay);
+
+  if (showInput && input) {
+    input.focus();
+    input.select();
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') okBtn.click();
+      if (e.key === 'Escape') cancelBtn.click();
+    });
+  }
+}
 
   const createTaskElement = (text, isDone = false) => {
   const li = document.createElement('li');
@@ -58,54 +150,74 @@ const isValidTask = (text) => {
   });
 
    
-  const editBtn = document.createElement('button');
+const editBtn = document.createElement('button');
   editBtn.textContent = '✏️';
   editBtn.className = 'edit-btn';
 
   editBtn.addEventListener('click', () => {
-    const newText = prompt('Rename Task', span.textContent);
-    if (newText !== null && isValidTask(newText)) {
-      span.textContent = newText;
-      updateTasksInLocalStorage();
-    }
+    showDialog({
+      title: 'Rename Task',
+      inputValue: span.textContent,
+      confirmText: 'SAVE',
+      cancelText: 'CANCEL',
+      showInput: true,
+      onConfirm: (newValue) => {
+        if (newValue !== null && isValidTask(newValue)) {
+          span.textContent = newValue;
+          updateTasksInLocalStorage();
+        }
+      }
+    });
   });
 
  
-  const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = '🗑️';
-  deleteBtn.className = 'delete-btn';
+ const deleteBtn = document.createElement('button');
+deleteBtn.textContent = '🗑️';
+deleteBtn.className = 'delete-btn';
+deleteBtn.title = 'Delete Task'; 
 
-  deleteBtn.addEventListener('click', () => {
-    li.remove();
-    updateNoTaskMessage();        
-    updateTasksInLocalStorage();  
+
+deleteBtn.addEventListener('click', () => {
+  showDialog({
+    title: 'Delete Task',
+   message: 'Are you sure you want to delete this task?',
+    confirmText: 'Delete',
+    cancelText: 'Cancel',
+    showInput: false,
+    onConfirm: () => {
+      li.remove();
+      updateNoTaskMessage();
+      updateTasksInLocalStorage();
+    }
   });
+});
 
-   
+
   const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'task-actions';
-  actionsDiv.appendChild(checkbox);
-  actionsDiv.appendChild(editBtn);
-  actionsDiv.appendChild(deleteBtn);
+actionsDiv.className = 'task-actions';
+actionsDiv.appendChild(checkbox);
+actionsDiv.appendChild(editBtn);
+actionsDiv.appendChild(deleteBtn);
 
-  li.appendChild(span);
-  li.appendChild(actionsDiv);
-  taskList.appendChild(li);
+li.appendChild(span);
+li.appendChild(actionsDiv);
+taskList.appendChild(li);
+
 };
 
 
 
  
- const addTask = () => {
+const addTask = () => {
   const value = taskInput.value.trim();
 
   if (!isValidTask(value)) return;
 
-  createTaskElement(value);          
-  saveTaskToLocalStorage(value);     
-  taskInput.value = '';  
-  updateNoTaskMessage();            
+  saveTaskToLocalStorage(value);
+  taskInput.value = '';
+  renderTasks();
 };
+
 
 
  
@@ -123,7 +235,9 @@ const updateTasksInLocalStorage = () => {
     tasks.push({ text, isDone });
   });
 
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+localStorage.setItem('tasks', JSON.stringify(tasks));
+renderTasks();
+
 };
 
 
@@ -139,17 +253,44 @@ const saveTaskToLocalStorage = (task) => {
 };
 
 window.addEventListener('DOMContentLoaded', () => {
-  const tasks = getTasksFromLocalStorage();
-  tasks.forEach(task => createTaskElement(task.text, task.isDone));
-  updateNoTaskMessage();
+  renderTasks();
 });
 
 
- 
+
+ const renderTasks = () => {
+  const allTasks = getTasksFromLocalStorage();
+  let filteredTasks = [];
+
+  if (currentFilter === 'All') {
+    filteredTasks = allTasks;
+  } else if (currentFilter === 'Done') {
+    filteredTasks = allTasks.filter(task => task.isDone);
+  } else if (currentFilter === 'Todo') {
+    filteredTasks = allTasks.filter(task => !task.isDone);
+  }
+
+taskList.innerHTML = '';
+  filteredTasks.forEach(task => createTaskElement(task.text, task.isDone));
+  updateNoTaskMessage();
+
+};
+
 
 
  const updateNoTaskMessage = () => {
   noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
 };
  
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.textContent; 
+    renderTasks();
+
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
  

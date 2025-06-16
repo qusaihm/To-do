@@ -90,21 +90,38 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 1%;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 
-  .filter-button{
-  background-color: #0099cc;
-  color: white;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.filter-button:hover {
-  background-color: #007ba7;
+  .filter-button {
+    flex: 1 1 0;           
+    min-width: 0;        
+    padding: 14px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: #0099cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+
+  .filter-button:hover {
+    background-color: #007ba7;
+  }
+
+  .filter-button.active {
+    background-color: #007ba7;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 121, 185, 0.3);
+    font-weight: bold;
+  }
 }
 
-}
 
 .filter-btn:hover {
   background-color: #007ba7;
@@ -118,7 +135,7 @@ h1 {
   list-style-type: none;
   margin-top: 10px;
   padding: 0;
-  max-width: 900px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -169,4 +186,67 @@ h1 {
   border: none;
   background: none;
   font-size: 1rem;
+}
+
+#custom-dialog {
+  background: rgba(0, 0, 0, 0.2); 
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+
+.dialog-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+}
+
+
+.dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+.dialog-input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+ .dialog-actions {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  justify-content: center;
+}
+
+.dialog-save, .dialog-cancel {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dialog-save {
+  background-color: #007bff;
+  color: white;
+}
+
+.dialog-cancel {
+  background-color: #dc3545;
+  color: white;
 }
