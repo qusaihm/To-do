@@ -81,7 +81,7 @@ okBtn.textContent = confirmText;
 
 // لون الزر حسب نوع الديالوج
 if (title === 'Rename Task') {
-  okBtn.style.backgroundColor = '#0d6efd';  // أزرق للتعديل
+  okBtn.style.backgroundColor = '#0d6efd'; 
   okBtn.style.color = '#fff';
 } else {
   okBtn.style.backgroundColor = '#e0e0e0';  // رمادي للتأكيد العام/الحذف
