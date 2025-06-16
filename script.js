@@ -174,7 +174,7 @@ const editBtn = document.createElement('button');
  const deleteBtn = document.createElement('button');
 deleteBtn.textContent = '🗑️';
 deleteBtn.className = 'delete-btn';
-deleteBtn.title = 'Delete Task'; // Tooltip
+deleteBtn.title = 'Delete Task'; 
 
 
 deleteBtn.addEventListener('click', () => {
