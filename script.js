@@ -266,9 +266,14 @@ taskList.innerHTML = '';
 
 
 
- const updateNoTaskMessage = () => {
-  noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
+  const updateNoTaskMessage = () => {
+  if (taskList.children.length === 0) {
+    noTaskMsg.style.display = 'block';
+  } else {
+    noTaskMsg.style.display = 'none';
+  }
 };
+
  
 
 filterButtons.forEach(btn => {
