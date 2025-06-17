@@ -147,14 +147,22 @@ if (title === 'Rename Task') {
   const deleteBtn = li.querySelector('.delete-btn');
   const span = li.querySelector('.task-text');
 
-   
-  checkbox.addEventListener('change', () => {
-    const checked = checkbox.checked;
-    span.style.textDecoration = checked ? 'line-through' : 'none';
-    span.style.color = checked ? 'red' : '#000000';
-    checkbox.style.accentColor = checked ? 'red' : '';
-    updateTasksInLocalStorage();
-  });
+    checkbox.addEventListener('change', () => {
+  const checked = checkbox.checked;
+
+  if (checked) {
+    span.style.textDecoration = 'line-through';
+    span.style.color = 'red';
+    checkbox.style.accentColor = 'red';
+  } else {
+    span.style.textDecoration = 'none';
+    span.style.color = '#000000';
+    checkbox.style.accentColor = '';
+  }
+
+  updateTasksInLocalStorage();
+});
+
 
    
   editBtn.addEventListener('click', () => {
