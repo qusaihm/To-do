@@ -95,7 +95,14 @@ if (title === 'Rename Task') {
 
   okBtn.onclick = () => {
     overlay.remove();
-    if (onConfirm) onConfirm(showInput ? input.value : undefined);
+    if (onConfirm) {
+  if (showInput) {
+    onConfirm(input.value);
+  } else {
+    onConfirm(undefined);
+  }
+}
+
   };
 
   cancelBtn.onclick = () => {
@@ -124,23 +131,23 @@ if (title === 'Rename Task') {
   const li = document.createElement('li');
   li.className = 'task-item';
 
-  const span = document.createElement('span');
-  span.textContent = text;
-  span.className = 'task-text';
-  span.style.flex = '1';
+  
+  li.innerHTML = `
+    <span class="task-text" style="${isDone ? 'text-decoration: line-through; color: red;' : ''}">${text}</span>
+    <div class="task-actions">
+      <input type="checkbox" ${isDone ? 'checked' : ''} class="task-checkbox">
+      <button class="edit-btn">✏️</button>
+      <button class="delete-btn" title="Delete Task">🗑️</button>
+    </div>
+  `;
 
-  if (isDone) {
-    span.style.textDecoration = 'line-through';
-    span.style.color = 'red';
-  }
+  
+  const checkbox = li.querySelector('.task-checkbox');
+  const editBtn = li.querySelector('.edit-btn');
+  const deleteBtn = li.querySelector('.delete-btn');
+  const span = li.querySelector('.task-text');
 
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.checked = isDone;
-  checkbox.className = 'task-checkbox';
-  if (isDone) checkbox.style.accentColor = 'red';
-
- 
+   
   checkbox.addEventListener('change', () => {
     const checked = checkbox.checked;
     span.style.textDecoration = checked ? 'line-through' : 'none';
@@ -150,12 +157,8 @@ if (title === 'Rename Task') {
   });
 
    
-const editBtn = document.createElement('button');
-  editBtn.textContent = '✏️';
-  editBtn.className = 'edit-btn';
-
   editBtn.addEventListener('click', () => {
-    showDialog({
+    showDialog({ 
       title: 'Rename Task',
       inputValue: span.textContent,
       confirmText: 'SAVE',
@@ -168,42 +171,27 @@ const editBtn = document.createElement('button');
         }
       }
     });
+  });   
+   
+  deleteBtn.addEventListener('click', () => {
+    showDialog({ 
+      title: 'Delete Task',
+      message: 'Are you sure you want to delete this task?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      showInput: false,
+      onConfirm: () => {
+        li.remove();
+        updateNoTaskMessage();
+        updateTasksInLocalStorage();
+      }
+    });
   });
 
- 
- const deleteBtn = document.createElement('button');
-deleteBtn.textContent = '🗑️';
-deleteBtn.className = 'delete-btn';
-deleteBtn.title = 'Delete Task'; 
-
-
-deleteBtn.addEventListener('click', () => {
-  showDialog({
-    title: 'Delete Task',
-   message: 'Are you sure you want to delete this task?',
-    confirmText: 'Delete',
-    cancelText: 'Cancel',
-    showInput: false,
-    onConfirm: () => {
-      li.remove();
-      updateNoTaskMessage();
-      updateTasksInLocalStorage();
-    }
-  });
-});
-
-
-  const actionsDiv = document.createElement('div');
-actionsDiv.className = 'task-actions';
-actionsDiv.appendChild(checkbox);
-actionsDiv.appendChild(editBtn);
-actionsDiv.appendChild(deleteBtn);
-
-li.appendChild(span);
-li.appendChild(actionsDiv);
-taskList.appendChild(li);
-
+  taskList.appendChild(li);
 };
+
+
 
 
 
