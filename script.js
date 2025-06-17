@@ -281,6 +281,7 @@ taskList.innerHTML = '';
  const updateNoTaskMessage = () => {
   noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
 };
+ 
 
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -292,3 +293,4 @@ filterButtons.forEach(btn => {
   });
 });
 
+ 
