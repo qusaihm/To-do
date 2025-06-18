@@ -338,3 +338,7 @@ deleteDoneBtn.addEventListener('click', () => {
   updateNoTaskMessage();
   updateDeleteButtons();
 });
+
+window.addEventListener('DOMContentLoaded', () => {
+  updateDeleteButtons();
+});
