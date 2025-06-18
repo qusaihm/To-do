@@ -5,6 +5,8 @@ const inputError = document.getElementById('input-error');
 const noTaskMsg = document.getElementById('masseg-notask');
 let currentFilter = 'All'; 
 const filterButtons = document.querySelectorAll('.filter-button');
+const deleteDoneBtn = document.getElementById('delete-donetask-button');
+const deleteAllBtn = document.getElementById('delete-alltask-buttton');
  
 const isValidTask = (text) => {
   if (text.trim() === '') {
