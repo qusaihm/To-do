@@ -199,6 +199,7 @@ if (title === 'Rename Task') {
   });
 
   taskList.appendChild(li);
+  updateDeleteButtons();  // ✅ Add this here(Ahmad add hereeee, this to solve refresh problem)
 };
 
 
