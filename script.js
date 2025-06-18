@@ -318,3 +318,23 @@ deleteAllBtn.addEventListener('click', () => {
   updateDeleteButtons();
 });
 
+deleteDoneBtn.addEventListener('click', () => {
+  const tasks = document.querySelectorAll('.task-item');
+  let foundDone = false;
+
+  tasks.forEach(task => {
+    const checkbox = task.querySelector('.task-checkbox');
+    if (checkbox.checked) {
+      task.remove();
+      foundDone = true;
+    }
+  });
+
+  if (!foundDone) {
+    showNoTasksAlert();
+  }
+
+  updateTasksInLocalStorage();
+  updateNoTaskMessage();
+  updateDeleteButtons();
+});
