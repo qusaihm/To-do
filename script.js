@@ -301,3 +301,8 @@ filterButtons.forEach(btn => {
   deleteDoneBtn.disabled = allTasks.length === 0;
   deleteAllBtn.disabled = allTasks.length === 0;
 };
+
+const showNoTasksAlert = () => {
+  alert("No tasks to delete");
+};
+
