@@ -306,3 +306,15 @@ const showNoTasksAlert = () => {
   alert("No tasks to delete");
 };
 
+deleteAllBtn.addEventListener('click', () => {
+  const tasks = document.querySelectorAll('.task-item');
+  if (tasks.length === 0) {
+    showNoTasksAlert();
+    return;
+  }
+  tasks.forEach(task => task.remove());
+  updateTasksInLocalStorage();
+  updateNoTaskMessage();
+  updateDeleteButtons();
+});
+
