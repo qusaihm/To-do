@@ -342,3 +342,9 @@ deleteDoneBtn.addEventListener('click', () => {
 window.addEventListener('DOMContentLoaded', () => {
   updateDeleteButtons();
 });
+
+const originalCreateTaskElement = createTaskElement;
+createTaskElement = function (...args) {
+  originalCreateTaskElement.apply(this, args);
+  updateDeleteButtons();
+};
