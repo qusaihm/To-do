@@ -1,4 +1,4 @@
- const taskInput = document.getElementById('todo-input');
+const taskInput = document.getElementById('todo-input');
 const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
@@ -7,7 +7,7 @@ let currentFilter = 'All';
 const filterButtons = document.querySelectorAll('.filter-button');
 const deleteDoneBtn = document.getElementById('delete-donetask-button');
 const deleteAllBtn = document.getElementById('delete-alltask-buttton');
- 
+
 const isValidTask = (text) => {
   if (text.trim() === '') {
     inputError.textContent = 'Task cannot be empty';
@@ -30,7 +30,6 @@ const isValidTask = (text) => {
   inputError.style.display = 'none';
   return true;
 };
-
 
 function showDialog({ title = '', message = '', inputValue = '', confirmText = 'Save', cancelText = 'Cancel', showInput = false, onConfirm, onCancel }) {
   const oldDialog = document.getElementById('custom-dialog');
@@ -78,18 +77,16 @@ function showDialog({ title = '', message = '', inputValue = '', confirmText = '
   btns.className = 'dialog-actions';
 
   const okBtn = document.createElement('button');
-okBtn.className = 'dialog-save';
-okBtn.textContent = confirmText;
+  okBtn.className = 'dialog-save';
+  okBtn.textContent = confirmText;
 
-
-if (title === 'Rename Task') {
-  okBtn.style.backgroundColor = '#0d6efd'; 
-  okBtn.style.color = '#fff';
-} else {
-  okBtn.style.backgroundColor = '#e0e0e0';  
-  okBtn.style.color = '#000';
-}
-
+  if (title === 'Rename Task') {
+    okBtn.style.backgroundColor = '#0d6efd'; 
+    okBtn.style.color = '#fff';
+  } else {
+    okBtn.style.backgroundColor = '#e0e0e0';  
+    okBtn.style.color = '#000';
+  }
 
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'dialog-cancel';
@@ -98,13 +95,12 @@ if (title === 'Rename Task') {
   okBtn.onclick = () => {
     overlay.remove();
     if (onConfirm) {
-  if (showInput) {
-    onConfirm(input.value);
-  } else {
-    onConfirm(undefined);
-  }
-}
-
+      if (showInput) {
+        onConfirm(input.value);
+      } else {
+        onConfirm(undefined);
+      }
+    }
   };
 
   cancelBtn.onclick = () => {
@@ -115,7 +111,6 @@ if (title === 'Rename Task') {
   btns.appendChild(okBtn);
   btns.appendChild(cancelBtn);
   dialog.appendChild(btns);
-
   overlay.appendChild(dialog);
   document.body.appendChild(overlay);
 
@@ -129,44 +124,38 @@ if (title === 'Rename Task') {
   }
 }
 
-  const createTaskElement = (text, isDone = false) => {
+const createTaskElement = (text, isDone = false) => {
   const li = document.createElement('li');
   li.className = 'task-item';
 
-  
   li.innerHTML = `
     <span class="task-text" style="${isDone ? 'text-decoration: line-through; color: red;' : ''}">${text}</span>
     <div class="task-actions">
       <input type="checkbox" ${isDone ? 'checked' : ''} class="task-checkbox">
-      <button class="edit-btn">✏️</button>
-      <button class="delete-btn" title="Delete Task">🗑️</button>
+      <button class="edit-btn">✏</button>
+      <button class="delete-btn" title="Delete Task">🗑</button>
     </div>
   `;
 
-  
   const checkbox = li.querySelector('.task-checkbox');
   const editBtn = li.querySelector('.edit-btn');
   const deleteBtn = li.querySelector('.delete-btn');
   const span = li.querySelector('.task-text');
 
-    checkbox.addEventListener('change', () => {
-  const checked = checkbox.checked;
+  checkbox.addEventListener('change', () => {
+    const checked = checkbox.checked;
+    if (checked) {
+      span.style.textDecoration = 'line-through';
+      span.style.color = 'red';
+      checkbox.style.accentColor = 'red';
+    } else {
+      span.style.textDecoration = 'none';
+      span.style.color = '#000000';
+      checkbox.style.accentColor = '';
+    }
+    updateTasksInLocalStorage();
+  });
 
-  if (checked) {
-    span.style.textDecoration = 'line-through';
-    span.style.color = 'red';
-    checkbox.style.accentColor = 'red';
-  } else {
-    span.style.textDecoration = 'none';
-    span.style.color = '#000000';
-    checkbox.style.accentColor = '';
-  }
-
-  updateTasksInLocalStorage();
-});
-
-
-   
   editBtn.addEventListener('click', () => {
     showDialog({ 
       title: 'Rename Task',
@@ -181,8 +170,8 @@ if (title === 'Rename Task') {
         }
       }
     });
-  });   
-   
+  });
+
   deleteBtn.addEventListener('click', () => {
     showDialog({ 
       title: 'Delete Task',
@@ -199,27 +188,17 @@ if (title === 'Rename Task') {
   });
 
   taskList.appendChild(li);
-  updateDeleteButtons();  // ✅ Add this here(Ahmad add hereeee, this to solve refresh problem)
+  updateDeleteButtons();   
 };
 
-
-
-
-
- 
 const addTask = () => {
   const value = taskInput.value.trim();
-
   if (!isValidTask(value)) return;
-
   saveTaskToLocalStorage(value);
   taskInput.value = '';
   renderTasks();
 };
 
-
-
- 
 addTaskBtn.addEventListener('click', addTask);
 
 taskInput.addEventListener('input', () => {
@@ -233,15 +212,11 @@ const updateTasksInLocalStorage = () => {
     const isDone = li.querySelector('.task-checkbox').checked;
     tasks.push({ text, isDone });
   });
-
-localStorage.setItem('tasks', JSON.stringify(tasks));
-renderTasks();
-
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTasks();
 };
 
-
 const getTasksFromLocalStorage = () => {
-   
   return JSON.parse(localStorage.getItem('tasks')) || [];
 };
 
@@ -253,11 +228,10 @@ const saveTaskToLocalStorage = (task) => {
 
 window.addEventListener('DOMContentLoaded', () => {
   renderTasks();
+  updateDeleteButtons();
 });
 
-
-
- const renderTasks = () => {
+const renderTasks = () => {
   const allTasks = getTasksFromLocalStorage();
   let filteredTasks = [];
 
@@ -269,15 +243,12 @@ window.addEventListener('DOMContentLoaded', () => {
     filteredTasks = allTasks.filter(task => !task.isDone);
   }
 
-taskList.innerHTML = '';
+  taskList.innerHTML = '';
   filteredTasks.forEach(task => createTaskElement(task.text, task.isDone));
   updateNoTaskMessage();
-
 };
 
-
-
-  const updateNoTaskMessage = () => {
+const updateNoTaskMessage = () => {
   if (taskList.children.length === 0) {
     noTaskMsg.style.display = 'block';
   } else {
@@ -285,19 +256,16 @@ taskList.innerHTML = '';
   }
 };
 
- 
-
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     currentFilter = btn.textContent; 
     renderTasks();
-
     filterButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   });
 });
 
- const updateDeleteButtons = () => {
+const updateDeleteButtons = () => {
   const allTasks = document.querySelectorAll('.task-item');
   deleteDoneBtn.disabled = allTasks.length === 0;
   deleteAllBtn.disabled = allTasks.length === 0;
@@ -313,35 +281,44 @@ deleteAllBtn.addEventListener('click', () => {
     showNoTasksAlert();
     return;
   }
-  tasks.forEach(task => task.remove());
-  updateTasksInLocalStorage();
-  updateNoTaskMessage();
-  updateDeleteButtons();
+
+  showDialog({
+    title: 'Delete All Tasks',
+    message: 'Are you sure you want to delete all tasks?',
+    confirmText: 'Delete All',
+    cancelText: 'Cancel',
+    showInput: false,
+    onConfirm: () => {
+      tasks.forEach(task => task.remove());
+      updateTasksInLocalStorage();
+      updateNoTaskMessage();
+      updateDeleteButtons();
+    }
+  });
 });
 
 deleteDoneBtn.addEventListener('click', () => {
   const tasks = document.querySelectorAll('.task-item');
-  let foundDone = false;
+  const doneTasks = Array.from(tasks).filter(task => task.querySelector('.task-checkbox').checked);
 
-  tasks.forEach(task => {
-    const checkbox = task.querySelector('.task-checkbox');
-    if (checkbox.checked) {
-      task.remove();
-      foundDone = true;
-    }
-  });
-
-  if (!foundDone) {
+  if (doneTasks.length === 0) {
     showNoTasksAlert();
+    return;
   }
 
-  updateTasksInLocalStorage();
-  updateNoTaskMessage();
-  updateDeleteButtons();
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  updateDeleteButtons();
+  showDialog({
+    title: 'Delete Completed Tasks',
+    message: 'Are you sure you want to delete all completed tasks?',
+    confirmText: 'Delete Done',
+    cancelText: 'Cancel',
+    showInput: false,
+    onConfirm: () => {
+      doneTasks.forEach(task => task.remove());
+      updateTasksInLocalStorage();
+      updateNoTaskMessage();
+      updateDeleteButtons();
+    }
+  });
 });
 
 const originalCreateTaskElement = createTaskElement;
