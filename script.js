@@ -1,9 +1,9 @@
-const taskInput = document.getElementById('todo-input');
+ const taskInput = document.getElementById('todo-input');
 const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
 const noTaskMsg = document.getElementById('masseg-notask');
-let currentFilter = 'All'; 
+let currentFilter = 'All';
 const filterButtons = document.querySelectorAll('.filter-button');
 const deleteDoneBtn = document.getElementById('delete-donetask-button');
 const deleteAllBtn = document.getElementById('delete-alltask-buttton');
@@ -81,10 +81,10 @@ function showDialog({ title = '', message = '', inputValue = '', confirmText = '
   okBtn.textContent = confirmText;
 
   if (title === 'Rename Task') {
-    okBtn.style.backgroundColor = '#0d6efd'; 
+    okBtn.style.backgroundColor = '#0d6efd';
     okBtn.style.color = '#fff';
   } else {
-    okBtn.style.backgroundColor = '#e0e0e0';  
+    okBtn.style.backgroundColor = '#e0e0e0';
     okBtn.style.color = '#000';
   }
 
@@ -122,7 +122,7 @@ function showDialog({ title = '', message = '', inputValue = '', confirmText = '
       if (e.key === 'Escape') cancelBtn.click();
     });
   }
-}
+};
 
 const createTaskElement = (text, isDone = false) => {
   const li = document.createElement('li');
@@ -132,8 +132,8 @@ const createTaskElement = (text, isDone = false) => {
     <span class="task-text" style="${isDone ? 'text-decoration: line-through; color: red;' : ''}">${text}</span>
     <div class="task-actions">
       <input type="checkbox" ${isDone ? 'checked' : ''} class="task-checkbox">
-      <button class="edit-btn">✏</button>
-      <button class="delete-btn" title="Delete Task">🗑</button>
+      <button class="edit-btn" title="Edit Task">✏️</button>
+      <button class="delete-btn" title="Delete Task">🗑️</button>
     </div>
   `;
 
@@ -157,7 +157,7 @@ const createTaskElement = (text, isDone = false) => {
   });
 
   editBtn.addEventListener('click', () => {
-    showDialog({ 
+    showDialog({
       title: 'Rename Task',
       inputValue: span.textContent,
       confirmText: 'SAVE',
@@ -173,7 +173,7 @@ const createTaskElement = (text, isDone = false) => {
   });
 
   deleteBtn.addEventListener('click', () => {
-    showDialog({ 
+    showDialog({
       title: 'Delete Task',
       message: 'Are you sure you want to delete this task?',
       confirmText: 'Delete',
@@ -188,7 +188,7 @@ const createTaskElement = (text, isDone = false) => {
   });
 
   taskList.appendChild(li);
-  updateDeleteButtons();   
+  updateDeleteButtons();
 };
 
 const addTask = () => {
@@ -221,9 +221,9 @@ const getTasksFromLocalStorage = () => {
 };
 
 const saveTaskToLocalStorage = (task) => {
-  const tasks = getTasksFromLocalStorage();  
-  tasks.push({ text: task, isDone: false });  
-  localStorage.setItem('tasks', JSON.stringify(tasks));  
+  const tasks = getTasksFromLocalStorage();
+  tasks.push({ text: task, isDone: false });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -249,16 +249,12 @@ const renderTasks = () => {
 };
 
 const updateNoTaskMessage = () => {
-  if (taskList.children.length === 0) {
-    noTaskMsg.style.display = 'block';
-  } else {
-    noTaskMsg.style.display = 'none';
-  }
+  noTaskMsg.style.display = taskList.children.length === 0 ? 'block' : 'none';
 };
 
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentFilter = btn.textContent; 
+    currentFilter = btn.textContent;
     renderTasks();
     filterButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -302,22 +298,14 @@ deleteDoneBtn.addEventListener('click', () => {
   const doneTasks = Array.from(tasks).filter(task => task.querySelector('.task-checkbox').checked);
 
   if (doneTasks.length === 0) {
- 
-    alert("No completed tasks to delete");
- 
     showNoTasksAlert();
- 
     return;
   }
 
   showDialog({
     title: 'Delete Completed Tasks',
     message: 'Are you sure you want to delete all completed tasks?',
- 
-    confirmText: 'Delete',
- 
     confirmText: 'Delete Done',
- 
     cancelText: 'Cancel',
     showInput: false,
     onConfirm: () => {
