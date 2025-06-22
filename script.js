@@ -1,4 +1,4 @@
- const taskInput = document.getElementById('todo-input');
+const taskInput = document.getElementById('todo-input');
 const addTaskBtn = document.getElementById('add-task');
 const taskList = document.getElementById('task-list');
 const inputError = document.getElementById('input-error');
@@ -132,8 +132,8 @@ const createTaskElement = (text, isDone = false) => {
     <span class="task-text" style="${isDone ? 'text-decoration: line-through; color: red;' : ''}">${text}</span>
     <div class="task-actions">
       <input type="checkbox" ${isDone ? 'checked' : ''} class="task-checkbox">
-      <button class="edit-btn">✏️</button>
-      <button class="delete-btn" title="Delete Task">🗑️</button>
+      <button class="edit-btn">✏</button>
+      <button class="delete-btn" title="Delete Task">🗑</button>
     </div>
   `;
 
@@ -302,14 +302,22 @@ deleteDoneBtn.addEventListener('click', () => {
   const doneTasks = Array.from(tasks).filter(task => task.querySelector('.task-checkbox').checked);
 
   if (doneTasks.length === 0) {
+ 
     alert("No completed tasks to delete");
+ 
+    showNoTasksAlert();
+ 
     return;
   }
 
   showDialog({
     title: 'Delete Completed Tasks',
     message: 'Are you sure you want to delete all completed tasks?',
+ 
     confirmText: 'Delete',
+ 
+    confirmText: 'Delete Done',
+ 
     cancelText: 'Cancel',
     showInput: false,
     onConfirm: () => {
