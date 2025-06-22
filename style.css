@@ -153,22 +153,36 @@ h1 {
 }
 
 
-.delete-buttons {
+ 
+  .delete-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.delete-button button {
+
+
+ .delete-buttons button {
   background-color: #dc3545;
-   
   color: white;
   border: none;
-  padding: 10px 25px;
+  padding: 12px;
   border-radius: 5px;
   cursor: pointer;
+  flex: 1;                
+  min-width: 180px;        
+  max-width: 100%;
 }
+
+.delete-buttons button:hover {
+  background-color: #f08080;
+}
+
 
 .delete-button button:hover {
   background-color: #f08080;
