@@ -302,14 +302,22 @@ deleteDoneBtn.addEventListener('click', () => {
   const doneTasks = Array.from(tasks).filter(task => task.querySelector('.task-checkbox').checked);
 
   if (doneTasks.length === 0) {
+ 
+    alert("No completed tasks to delete");
+ 
     showNoTasksAlert();
+ 
     return;
   }
 
   showDialog({
     title: 'Delete Completed Tasks',
     message: 'Are you sure you want to delete all completed tasks?',
+ 
+    confirmText: 'Delete',
+ 
     confirmText: 'Delete Done',
+ 
     cancelText: 'Cancel',
     showInput: false,
     onConfirm: () => {
