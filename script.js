@@ -123,14 +123,7 @@ function showDialog({
   overlay.appendChild(dialog);
   document.body.appendChild(overlay);
 
-  if (showInput && input) {
-    input.focus();
-    input.select();
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") okBtn.click();
-      if (e.key === "Escape") cancelBtn.click();
-    });
-  }
+
 }
 
 const createTaskElement = (text, isDone = false) => {
