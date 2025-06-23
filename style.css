@@ -261,3 +261,23 @@ h1 {
   background-color: #dc3545;
   color: white;
 }
+
+.delete-btn svg {
+  fill: rgb(227, 58, 58);
+  width: 20px;
+  height: 20px;
+}
+
+.edit-btn svg {
+  fill: rgb(217, 130, 58);
+  width: 20px;
+  height: 20px;
+}
+
+.delete-btn:hover svg {
+  fill: darkred;
+}
+
+.edit-btn:hover svg {
+  fill: saddlebrown;
+}
