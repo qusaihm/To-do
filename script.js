@@ -322,8 +322,4 @@ deleteDoneBtn.addEventListener("click", () => {
   });
 });
 
-const originalCreateTaskElement = createTaskElement;
-createTaskElement = function (...args) {
-  originalCreateTaskElement.apply(this, args);
-  updateDeleteButtons();
-};
+ 
